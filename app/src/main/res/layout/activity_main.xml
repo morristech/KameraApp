@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.henrique.kamera.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/linearLayMain"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnCamera"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:background="@color/colorPrimary"
+                android:text="CAMERA"
+                android:textColor="@color/colorAccent"
+                android:textSize="16dp"
+                android:layout_marginBottom="16dp"
+                />
+
+            <Button
+                android:id="@+id/btnAlbum"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:background="@color/colorPrimary"
+                android:text="ALBUm"
+                android:textColor="@color/colorAccent"
+                android:textSize="16dp"
+                />
+
+            <LinearLayout
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btnBorderlessFeed"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:layout_height="50dp"
+                    android:text="F E E D"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:textSize="20dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>>
+
+    </RelativeLayout>>
+
+</android.support.constraint.ConstraintLayout>
