@@ -1,8 +1,19 @@
 package com.example.henrique.kamera;
 
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.Instrumentation;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +31,7 @@ public class CameraFotoFragment extends Fragment implements View.OnClickListener
 
     File mCaminhoFoto;
     ImageView mImageViewFoto;
-
+    CarregarImageTask mTask;
 
     int mLarguraImagem;
     int mAlturaImagem;
@@ -48,7 +59,70 @@ public class CameraFotoFragment extends Fragment implements View.OnClickListener
     }
     @Override
     public void onActivityResult (int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode , data);
 
+        if (resultCode == Activity.RESULT_OK && requestCode == Util.REQUESTCODE_FOTO){
+            carregarImagem();
+        }
+    }
+    @Override
+    public void onGlobalLayout () {
+      if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1){ {
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+              getView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
+          }
+      }
+      } else {
+          getView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
+      }
+      mLarguraImagem = mImageViewFoto.getWidth();
+      mAlturaImagem = mImageViewFoto.getHeight();
+      carregarImagem();
+    }
+    @Override
+    public void onClick (View view){
+      if (view.getId() == R.id.btnFotoFrag){
+          if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)==
+                  PackageManager.PERMISSION_GRANTED){
+            abrirCamera();
+          } else {
+              ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},0);
+          }
+        }
+    }
+
+    private void abrirCamera (){
+      mCaminhoFoto = Util.novaMidia(Util.MIDIA_FOTO);
+      Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+      it.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCaminhoFoto));
+      startActivityForResult(it, Util.REQUESTCODE_FOTO);
+    }
+    private void carregarImagem (){
+      if (mCaminhoFoto != null && mCaminhoFoto.exists()){
+          if (mTask == null || mTask.getStatus() != AsyncTask.Status.RUNNING){
+              mTask = new CarregarImageTask();
+              mTask.execute();
+          }
+      }
+    }
+    class CarregarImageTask extends AsyncTask<Void, Void, Bitmap>{
+      @Override
+        protected Bitmap doInBackground(Void... voids){
+          return Util.carregarImagem(
+                  mCaminhoFoto,
+                  mLarguraImagem,
+                  mAlturaImagem
+          );
+      }
+      @Override
+        protected void onPostExecute(Bitmap bitmap){
+          super.onPostExecute(bitmap);
+          if(bitmap != null){
+              mImageViewFoto.setImageBitmap(bitmap);
+              Util.salvarUltimaMidia(getActivity(),
+                      Util.MIDIA_FOTO, mCaminhoFoto.getAbsolutePath());
+          }
+      }
     }
 
 }

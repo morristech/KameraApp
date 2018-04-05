@@ -6,4 +6,5 @@
     android:layout_height="match_parent"
     tools:context="com.example.henrique.kamera.PhotosActivity">
 
+
 </android.support.constraint.ConstraintLayout>
