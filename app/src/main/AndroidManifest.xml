@@ -2,13 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.henrique.kamera">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-feature android:name="android.hardware.camera.autofocus"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature android:name="android.hardware.camera" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
-
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -25,8 +25,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".FeedActivity" />
-        <activity android:name=".CameraActivity" />
-        <activity android:name=".PhotosActivity"></activity>
+        <activity android:name=".CameraActivity">
+            <intent-filter>
+            <action android:name="android.media.action.IMAGE_CAPTURE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".PhotosActivity" />
     </application>
 
 </manifest>
