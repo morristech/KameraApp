@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.henrique.kamera.CameraActivity"
-    android:gravity="center">
+   android:keepScreenOn="true"
+    android:padding="16dp"
+    >
 
-    <fragment
-        android:id="@+id/fragmentCamera"
+    <FrameLayout
+        android:id="@+id/previewCamera"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        class="com.example.henrique.kamera.CameraFotoFragment"
-        tools:layout="@layout/fragment_camera_foto"/>
+        android:layout_height="match_parent"/>
 
-</LinearLayout>
+<Button
+    android:id="@+id/btnCapturarFoto"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:background="@drawable/ic_tirar_foto"
+    android:layout_gravity="center|bottom"
+    android:backgroundTint="@color/colorPrimaryDark"/>
+
+</FrameLayout>
