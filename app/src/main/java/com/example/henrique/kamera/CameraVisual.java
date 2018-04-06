@@ -2,6 +2,7 @@ package com.example.henrique.kamera;
 
 import android.content.Context;
 import android.hardware.Camera;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import java.io.IOException;
@@ -18,6 +19,7 @@ public class CameraVisual extends SurfaceView implements SurfaceHolder.Callback{
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         try {
+            Log.i("E", "mCamera--" + mCamera);
             mCamera.setPreviewDisplay(holder);
             mCamera.startPreview();
         }catch (IOException e){

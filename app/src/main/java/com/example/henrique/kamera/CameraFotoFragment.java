@@ -23,6 +23,7 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 import java.io.File;
+import java.util.ArrayList;
 
 
 /**
@@ -83,9 +84,11 @@ public class CameraFotoFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick (View view){
       if (view.getId() == R.id.btnFotoFrag){
-          if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)==
+          ArrayList<String> permissions = new ArrayList<>();
+          if (ActivityCompat.checkSelfPermission(getActivity(),
+                  Manifest.permission.READ_EXTERNAL_STORAGE)!=
                   PackageManager.PERMISSION_GRANTED){
-            abrirCamera();
+              permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
           } else {
               ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},0);
           }

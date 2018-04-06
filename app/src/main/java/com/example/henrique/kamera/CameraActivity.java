@@ -166,7 +166,6 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             }
         }
     };
-
     @Override
     public void onClick(View view) {
 
@@ -178,4 +177,5 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         }
 
     }
+
 }
