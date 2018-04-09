@@ -89,10 +89,16 @@ public class CameraFotoFragment extends Fragment implements View.OnClickListener
                   Manifest.permission.READ_EXTERNAL_STORAGE)!=
                   PackageManager.PERMISSION_GRANTED){
               permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+          }if (ActivityCompat.checkSelfPermission(getActivity(),Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
+              permissions.add(Manifest.permission.CAMERA);
+          } if (permissions.isEmpty()){
+              abrirCamera();
           } else {
-              ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},0);
+            String[] permissoesParaRequisitar = new String[permissions.size()];
+            permissions.toArray(permissoesParaRequisitar);
+            ActivityCompat.requestPermissions(getActivity(), permissoesParaRequisitar, 0);
           }
-        }
+      }
     }
 
     private void abrirCamera (){
